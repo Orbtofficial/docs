@@ -5,7 +5,7 @@
 # ORBT Documentation
 
 [![Docs](https://img.shields.io/badge/Docs-Start%20Here-4c9aff)](#start-here)
-[![Solidity](https://img.shields.io/badge/Solidity-0.8.20%2B-363636?logo=solidity)](#contracts-index)
+[![Solidity](https://img.shields.io/badge/Solidity-0.8.20%2B-363636?logo=solidity)](#contracts--interfaces)
 [![Foundry](https://img.shields.io/badge/Tested%20with-Foundry-2ea44f)](https://book.getfoundry.sh/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#license)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
@@ -20,10 +20,13 @@ The ORBT protocol is a unified liquidity and asset management system centered ar
 ## Table of Contents
 
 - [Start Here](#start-here)
+- [Ecosystem & Install](#ecosystem--install)
 - [Concepts](#concepts)
 - [Integration APIs](#integration-apis)
-- [Contracts Index](#contracts-index)
+- [Contracts & Interfaces](#contracts--interfaces)
+- [Tutorials](#tutorials)
 - [Suggested Journeys by Role](#suggested-journeys-by-role)
+- [Community & Support](#community--support)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -45,6 +48,17 @@ If you are new to ORBT, read these in order:
    - concepts: [Rewards](concepts/rewards.md)
 
 Then jump into the relevant Integration Guides below.
+
+---
+
+## Ecosystem & Install
+
+- Tooling:
+  - Foundry (contracts/testing): see [Foundry Book](https://book.getfoundry.sh/)
+  - Node.js (optional scripts), a modern wallet
+- Quick setup suggestions (for integrators):
+  - Always use preview/read-only calls before sending txs
+  - Configure ERC-20 approvals with least privilege; prefer permit flows when available
 
 ---
 
@@ -96,6 +110,23 @@ Then jump into the relevant Integration Guides below.
 
 ---
 
+## Interfaces
+
+- UCE: [api/uce/IOrbtUCE.sol](api/uce/IOrbtUCE.sol)
+- UPM & Strategies: [api/upm/IOrbitUPM.sol](api/upm/IOrbitUPM.sol), [api/upm/IBaseStrategy.sol](api/upm/IBaseStrategy.sol), [api/upm/IOrbtMMStrategy.sol](api/upm/IOrbtMMStrategy.sol)
+- USM: [api/usm/IS0xAsset.sol](api/usm/IS0xAsset.sol)
+- Rewards: [api/rewards/IStakingRewards.sol](api/rewards/IStakingRewards.sol)
+
+See full API summaries: [api/README.md](api/README.md)
+---
+
+## Tutorials
+
+- Quickstart: [tutorials/Quickstart.md](tutorials/Quickstart.md)
+- DeFi Onboarding: [tutorials/DefiOnboarding.md](tutorials/DefiOnboarding.md)
+
+---
+
 ## Suggested Journeys by Role
 
 - Builders / Integrators
@@ -107,8 +138,16 @@ Then jump into the relevant Integration Guides below.
   - Read: [Allocator & Pocket](concepts/allocator.md) → [UPM Integrator Guide](api/upm/docs/IntegrationGuide.md) → [Strategies Guide](api/upm/docs/OrbtStrategiesGuide.md)
 
 - Smart Contract Engineers
-  - Skim: [Contracts Index](#contracts-index) → open the relevant interfaces
+  - Skim: [Contracts & Interfaces](#contracts--interfaces) → open the relevant interfaces
   - Reference: [api/README.md](api/README.md)
+
+---
+
+## Community & Support
+
+- Issues: use the templates under [.github](.github) to report bugs or request docs
+- PRs: follow [CONTRIBUTING](.github/CONTRIBUTING.md)
+- Security: security@orbt.protocol
 
 ---
 
