@@ -96,24 +96,6 @@ Then jump into the relevant Integration Guides below.
 
 ---
 
-## Contracts Index
-
-- UCE
-  - `IOrbtUCE.sol` — [api/uce/IOrbtUCE.sol](api/uce/IOrbtUCE.sol)
-
-- UPM & Strategies
-  - `IOrbitUPM.sol` — [api/upm/IOrbitUPM.sol](api/upm/IOrbitUPM.sol)
-  - `IBaseStrategy.sol` — [api/upm/IBaseStrategy.sol](api/upm/IBaseStrategy.sol)
-  - `IOrbtMMStrategy.sol` — [api/upm/IOrbtMMStrategy.sol](api/upm/IOrbtMMStrategy.sol)
-
-- USM
-  - `IS0xAsset.sol` — [api/usm/IS0xAsset.sol](api/usm/IS0xAsset.sol)
-
-- Rewards
-  - `IStakingRewards.sol` — [api/rewards/IStakingRewards.sol](api/rewards/IStakingRewards.sol)
-
----
-
 ## Suggested Journeys by Role
 
 - Builders / Integrators
