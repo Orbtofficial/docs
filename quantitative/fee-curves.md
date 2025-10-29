@@ -27,8 +27,3 @@ Charged redemption fee for a trade with snapshot rate `r`:
 - Bounded: rate ∈ [0, 5%]
 - Memory: decays over time; recency-weighted responsiveness to volume
 - Preview parity: previews use `r_current`; execution snapshots the same rate
-
-#### Alternatives (not implemented)
-- Utilization-based sigmoid: `r = r_max × σ(k(u − u0))`
-- Bucketed step function by recent redemption volume
-- Volatility-sensitive bump (oracle variance proxy)
