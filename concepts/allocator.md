@@ -4,7 +4,7 @@ Permissioned counterparties that run distribution, hold reserved 0x inventory, a
 
 ## Role Summary
 
-* **Primary Issuers**: Mint 0x via credit lines, warehouse as **reserved 0x**, and serve user demand.
+* **Primary Issuers**: Mint 0x via borrow capacity, warehouse as **reserved 0x**, and serve user demand.
 * **Liquidity Managers**: Keep Pockets funded and allowances open so UCE can pull on redemptions.
 * **Yield Participants**: Deploy Pocket balances via UPM into strategies; optionally operate as OCHs via credit delegation.
 * **Attribution Surface**: Referral codes map user flow to an allocator; referred OX outflow **must** consume the referrer’s inventory.

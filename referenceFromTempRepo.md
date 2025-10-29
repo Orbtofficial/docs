@@ -23,7 +23,7 @@ ORBT-UCE is a **modular DeFi protocol** that unifies fragmented collateral asset
 
 ✅ **Seamless Swaps** between any Bitcoin-backed asset  
 ✅ **Yield Generation** through ERC-4626 compliant staking vaults  
-✅ **Capital-Efficient** credit lines for professional liquidity providers  
+✅ **Capital-Efficient** minting lines for professional liquidity providers (not accessible unless equivalent collateral deposited)
 ✅ **Governance-Controlled** parameter management with timelock safety  
 
 ### The Problem
@@ -103,7 +103,7 @@ ORBT-UCE is a **modular DeFi protocol** that unifies fragmented collateral asset
 - 🔧 **Composable**: ERC-20, ERC-4626, ERC-2612 standard compliance
 
 ### For Allocators (Liquidity Providers)
-- 💳 **Credit Lines**: Mint 0x assets against pre-approved limits
+- 💳 **Minting buckets**: Mint 0x assets against pre-approved limits (Not accessible unless equivalent collateral deposited)
 - 📍 **Referral System**: Capture user flow via referral codes
 - 💸 **Earn on Deposits**: Deploy user collateral for yield
 - 🎚️ **Flexible Management**: Custom pockets, configurable parameters
