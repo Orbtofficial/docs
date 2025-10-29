@@ -299,7 +299,7 @@ ORBT-UCE follows best practices from leading DeFi protocols:
 
 | Protocol | Pattern Adopted |
 |----------|-----------------|
-| **SkyMoney** | PSM mechanics (UCE swaps) |
+| **SkyMoney & Spark** | PSM mechanics (UCE swaps) |
 | **SkyMoney** | Yield  (Pockets) |
 | **Prisma** | Dynamic redemption rates (0xUSD redemption rate) |
 | **MakerDAO** | DSR accumulator pattern (USM interest accrual) |
