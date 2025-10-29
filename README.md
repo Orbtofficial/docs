@@ -51,7 +51,7 @@ If you are new to ORBT, read these in order:
 3. UPM & Strategies — execution layer for yield and delegation
    - concepts: [UPM](concepts/upm.md), [Strategies](concepts/strategies.md)
 4. Allocator & Pocket — roles, economics, operations
-   - concepts: [Allocator](concepts/allocator.md)
+   - concepts: [Allocator](concepts/allocator.md), [Pocket](concepts/pocket.md)
 5. Rewards — emissions and distribution
    - concepts: [Rewards](concepts/rewards.md)
 
@@ -90,7 +90,7 @@ Then jump into the relevant Integration Guides below.
 
 - Allocator & Pocket
   - Credit issuers and liquidity partners; manage reserved 0x, pockets, and operational allowances.
-  - read: [concepts/allocator.md](concepts/allocator.md)
+  - read: [concepts/allocator.md](concepts/allocator.md), [concepts/pocket.md](concepts/pocket.md)
 
 - Rewards
   - Emissions model, revenue distribution, fairness and risk.

@@ -9,7 +9,9 @@ ERC-4626 layer over 0xAssets that issues **s0x** shares and accumulates value vi
 
 ## Mechanics
 
-* **Deposit/Withdraw via UCE**: `0x ↔ s0x` swaps call ERC-4626 `deposit/redeem` on the vault. No oracle path; strictly unit conversions.
+* **Access Paths**:
+  * Direct vault usage: interact with the s0x vault’s ERC-4626 interface.
+  * Via UCE router: `0x ↔ s0x` swaps call ERC-4626 under the hood. No oracle path; strictly unit conversions.
 * **Exchange Rate**: Reflects accrued yield and any revenue distributions to the vault. Integrators should **preview** before swap to obtain correct shares/out.
 * **Liquidity & Latency**: Redemptions rely on the vault’s underlying liquidity policy; UCE paths are preview-consistent.
 
@@ -17,6 +19,11 @@ ERC-4626 layer over 0xAssets that issues **s0x** shares and accumulates value vi
 
 * **Backed 1:1 in family terms** subject to vault asset allocation and risk parameters.
 * **Pause/Guardrails**: Governance can pause a vault or adjust deposit caps according to market conditions.
+
+## Learn More
+
+- Integration details and API: `docs/api/usm/docs/IntegrationGuide.md`
+- Interface: `docs/api/usm/IS0xAsset.sol`
 
 ## Integration Notes
 

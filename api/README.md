@@ -7,7 +7,7 @@ This page aggregates the on-chain API surfaces for core ORBT components and link
 ## Table of Contents
 
 - [UCE: Unified Collateral Engine](#uce-unified-collateral-engine)
-- [USM: s0x Vault (ISOxAsset)](#usm-s0x-vault-isoxasset)
+- [USM: s0x Vault (IS0xAsset)](#usm-s0x-vault-isoxasset)
 - [UPM: Orchestrator](#upm-orchestrator)
 - [Strategies: Money Market Adapter](#strategies-money-market-adapter)
 - [Staking Rewards](#staking-rewards)
@@ -50,7 +50,7 @@ Events (selection): `Swap`, `Deposit`, `Withdraw`, `AssetPaused`, `PocketSet`
 
 ---
 
-## USM: s0x Vault (ISOxAsset)
+## USM: s0x Vault (IS0xAsset)
 
 - Concept: see [../concepts/usm.md](../concepts/usm.md)
 - Integration Guide: [usm/docs/IntegrationGuide.md](usm/docs/IntegrationGuide.md)

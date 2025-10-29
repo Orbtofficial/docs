@@ -1,61 +1,110 @@
 # UCE: Unified Collateral Engine
 
-**The Unified Collateral Engine (UCE)** is the core liquidity and asset management layer of the ORBT protocol. It functions as a Peg Stability Module (PSM) that enables seamless, low-slippage swaps between underlying collateral assets (e.g., WBTC, cbBTC) and their corresponding synthetic 0x assets (e.g., 0xBTC). The UCE serves as the primary interface for users, allocators, and integrators to interact with the ORBT ecosystem.
-Unlike traditional PSMs that simply maintain nearly 1:1 backing, the UCE implements an allocator reserved-inventory model: permissioned allocators can mint 0x into their reserved inventory on UCE. These newly minted 0xAssets never leave UCE unless and until an equivalent amount of underlying collateral is deposited and attributed to that allocator (via referral or self-deposit). This enables capital efficiency while maintaining robust collateralization and risk management.
+The Unified Collateral Engine (UCE) is the backbone of 0xAsset issuance and solvency. It aggregates and manages collateral deposits backing 0xUSD and family synthetics like 0xBTC/0xETH. Unlike siloed vaults, UCE runs a unified collateral pool with a consistent risk framework and PSM-style mechanics for instant, oracle-free redemptions.
 
-> Practically it is not advisable to compose a 1:1 backing model for 0xAsset <> Underlying since there can be slight or even major disparity among the family indexed price of each asset. Meaning that, it is true that stETH theoretically stays pegged to ETH generally but there could be instances where stETH might stay at a major delta from ETH price. Considering this, we have introduced oracles to always make sure the output or input of 0xAssets for issuance and redemption is catered using the supported underlying asset's oracle price and converted in terms of the family's index. 
+Unified pool advantage: surplus in one collateral can absorb shortfalls in another (within family limits), minimizing idle capital while preserving a hard 1:1 peg via deterministic redemption, PSM semantics, and on-chain oracles for mint pricing.
 
-The UCE is built around several key innovations:
-1. Multi-Collateral Support: A single UCE instance can manage multiple underlying assets within the same asset family (e.g., WBTC, cbBTC, tBTC for the BTC family) backing a single synthetic asset (e.g., 0xBTC for the BTC family)
-2. Allocator Reserved Inventory: Whitelisted allocators may mint 0x into on-contract reserved inventory. This inventory is only releasable to users when matched by equivalent underlying deposits attributed to that allocator (referral/self-deposit). Issuance is bounded by governance-set limits (ceiling/dailyCap) and subject to `borrowFeeBps` on repayment in underlying.
-3. Referral Attribution: Users can swap using allocator referral codes, directing underlying collateral to specific allocator pockets.
-4. Dynamic Redemption Fees: Fee rates increase with redemption pressure and decay over time, providing economic incentives for balanced liquidity.
-5. Lazy Debt Accounting: Proportional obligation reduction across all allocators without iterating through allocator lists, enabling gas-efficient scaling.
-6. Reserve Policy: Configurable reserve ratios that keep a percentage of deposited collateral on-hand for instant redemptions.
-7. Vault Integration: Integration with s0xAsset which ERC-4626 for yield-bearing collateral management for swaps between 0x <> s0x as per current exchange rate. 
+## Purpose & Role
 
+- Core liquidity hub for users, allocators, and integrators
+- Ensures every 0xAsset is fully backed, instantly redeemable, and efficiently utilized via yield routes (UPM/Strategies)
+- Bridges classic PSM flows with modern credit and pocket-based liquidity
 
-## Purpose
-UCE unifies collateral custody, synthetic issuance, allocator reserved inventory accounting, and peg stability in a single control plane. It manages liquidity across **two swap planes**:
+## How It Works (Lifecycle)
 
-* **U ↔ 0x**: Underlying stable/crypto to 0xAssets (mint/redemption)
-* **0x ↔ s0x**: ERC-4626 staking share conversions (no oracle; vault exchange-rate based)
+1) Collateral inflow: Users/allocators deposit supported U (e.g., USDC, WBTC).
+2) Minting 0xAssets: Users mint U→0x at oracle-priced parity (optional haircut, tin fee).
+3) Active liquidity management: A per-asset reserve slice stays on UCE; the remainder forwards to pockets for yield via Strategies.
+4) Redemptions & peg: 0x→U settles from reserves first, then allowance‑bounded pocket pulls (referral pocket first when provided).
+5) Governance: Adjusts reserve ratios, tin, per-asset oracles, credit ceilings/daily caps, and allocator/pocket config.
 
-Each deployed UCE is **scoped to a Family** (e.g., `USD`, `ETH`, `BTC`) and only routes swaps within that family.
+## Design Objectives
 
-## Key Objects & Flows
+- Hard-peg redemptions: Oracle-free, decimals‑normalized parity minus a dynamic, decaying redemption fee.
+- Elastic minting: Oracle‑priced U→0x with optional mint haircut and tin (0x minted to treasury).
+- Capital efficiency: Two-layer liquidity (reserves + pockets) for instant exits and productive idle.
+- Predictable sourcing: Outbound U pulls are bounded by on-chain allowances and balances.
+- Stability under stress: Fees rise with redemption pressure and decay automatically.
 
-* **0xAssets**: 18-dec family units (e.g., `0xUSD`, `0xBTC`) minted/burned by UCE.
-* **s0xAssets**: ERC-4626 shares over 0x (e.g., `s0xUSD`). Value accrues via the vault exchange rate.
-* **Pockets (Global & Allocator)**: Custody endpoints (EOA/multisig/strategy vaults). UCE pulls from pockets for redemptions; non-reserved inbound is forwarded to pockets after applying **reserveBps**.
-* **Allocators**: Permissioned liquidity partners with **reserved 0x inventory on UCE**; supply primary market liquidity and absorb operational risk.
-* **Referral Attribution**: User swaps that include a referrer code route U to the referrer’s pocket and **consume the referrer’s reserved 0x first**.
+## Peg & Liquidity Model
 
-## Financial Architecture
+- Layer 1: On-hand reserves. A configurable portion (e.g., 25%) of U inflow remains on UCE for fast 0x→U.
+- Layer 2: Pockets. The remainder routes to global or allocator pockets; redemptions pull from pockets strictly within allowance/balance.
+- Redemption determinism: 0x→U uses pure decimals normalization and a snapshotted fee; sourcing order is reserves → referral pocket → global pocket. No underlying is ever “printed”.
 
-* **Obligation Indexing**: UCE maintains a global `debtIndex` (1e18 scale). Each allocator’s obligation is tracked in base units; **effective obligation = baseDebt × debtIndex / 1e18**. System-level write-downs (if any) socialize proportionally by scaling the index.
-* **Issuance Discipline**: Per-allocator **ceiling** (max effective obligation) and **dailyCap** (issuance velocity). Minting increases reserved inventory and the allocator obligation; repayments retire obligation in normalized 0x terms.
-* **Reserve Policy**: A per-asset **reserveBps** of inbound U is retained on UCE to fund instant redemptions; the remainder is forwarded to pockets. Outbound U for redemptions **consumes reserve first**, then pulls from pockets by allowance.
-* **Peg Stability**:
+## Pricing & Fees
 
-  * **Mint path (U→0x)**: Oracle-priced with optional mint haircut; **tinBps** fee minted in 0x to treasury.
-  * **Redeem path (0x→U)**: Oracle-free; **dynamic redemption fee** (time-varying) is paid by user in U. Rate increases with redemption pressure and decays over time, ensuring preview-execution parity via snapshotting.
+- U→0x (mint): oracle-priced per family; optional mint haircut; tinBps mints 0x to treasury.
+- 0x→U (redeem): oracle‑free; dynamic redemption fee (capped; decays hourly) taken in U, preview‑consistent via snapshot.
+- 0x↔s0x (ERC‑4626): fee‑free at UCE; vault exchange rate defines pricing.
 
-## Routing & Settlement (High-Level)
+## Routing & Settlement
 
-* **U→0x (Issuance)**: Unreserved on-hand 0x → (if referred: referrer’s reserved 0x; else pro-rata across allocators reducing their obligations) → mint remainder.
-* **0x→U (Redemption)**: On-hand reserve → pull from selected pocket (referrer pocket if provided; else global) subject to allowance and balance.
+- U→0x with referral: U to allocator pocket; 0x must come from referrer’s reserved inventory (else revert).
+- U→0x without referral: Unreserved protocol inventory → pro‑rata allocator inventory → mint shortfall.
+- 0x→U: Reserves first, then pocket pulls (referrer first if present), all bounded by allowance and balance.
+
+## Oracle Scope & Risk
+
+- Oracles are used only on mint (U→0x). Redemptions are oracle‑free.
+- Heartbeats and stale checks enforced; non‑USD families compose USD feeds via base/USD as needed.
 
 ## Governance Surface
 
-* **Allocator Onboarding/Updates**: Allowlist, issuance limits (ceiling/dailyCap), `borrowFeeBps`, pockets, referral code.
-* **Asset Policy**: Oracle configuration (feeds/heartbeat), mint haircut, per-asset tinBps and reserveBps.
-* **Pausing**: Global and per-asset.
+- Assets: add/rotate pocket, set reserveBps, set oracles and mint haircut, set tinBps, per‑asset pause.
+- Allocators: allowlist, ceilings, daily caps, borrow fee, referral mapping, per‑asset pockets.
+- Global controls: pause, treasury address.
 
 ## Invariants & Safety
 
-* **Liquidity**: `totalReserved0x ≤ 0x balance on UCE`.
-* **Issuance Limits**: For all allocators, `effectiveObligation ≤ ceiling`; daily cap enforced per UTC bucket.
-* **Previews match execution**: normalizations, fees, and redemption fee snapshot.
-* **Fail-safe**: Reverts on stale/oracle disabled, invalid pairs (U↔U, 0x↔0x), insufficient pocket allowance, or cap violations.
+- Liquidity bounded: pocket pulls limited by allowance and balance; insufficient liquidity reverts.
+- Pair gating: Only U↔0x and 0x↔s0x supported.
+- Preview parity: fee snapshot on redemption; consistent decimals normalization and tin application.
+
+## Adding Assets (Admin)
+
+Checklist before `addAsset(asset, family, pocket, reserveBps)`:
+- Family fit (USD/ETH/BTC instance)
+- Pocket readiness (custody address funded/allowanced)
+- Reserve policy per asset (e.g., 25%)
+- Oracle plan for U→0x (feeds, heartbeat, optional haircut)
+- Optional tinBps
+
+Post‑add operations:
+- Attach oracles via `setOracle`
+- Tune `setAssetTinBps` and `setAssetReserveBps`
+- Pause/unpause per asset as needed
+- Rotate pocket with allowance‑bounded migration
+
+Operational implications:
+- Redemptions are always bounded by reserves + pocket allowance/balance
+- U→0x becomes available only after oracles are healthy
+
+## Allocators (Overview)
+
+Whitelisted entities that provision 0x inventory and custody pockets.
+- Lifecycle: onboard → credit mint (OX inventory on UCE) → deploy underlying via Strategies → repay in underlying.
+- Referral routing: user U inflows go to the allocator pocket; 0x to the user must be served from the allocator’s reserved inventory (else revert).
+- Restrictions: allocators cannot redeem 0x→U directly; they settle via underlying‑side flows.
+
+### Credit Minting (effects)
+- Mints OX to UCE and credits allocator’s reserved inventory.
+- Tracks issuance against ceiling and daily cap; emits credit events.
+
+### Repayment (effects)
+- Pulls underlying to UCE, applies borrow fee to treasury, and reduces allocator liability in OX‑equivalent terms (decimals‑normalized).
+- On‑hand U rises, immediately strengthening redemption capacity.
+
+## Referral vs Non‑Referral (At a Glance)
+
+- With referral: U→0x uses referrer pocket for U and referrer inventory for 0x; 0x→U pulls from referrer pocket first.
+- Without referral: U→0x uses unreserved → pro‑rata allocator inventory → mint; 0x→U uses reserves → global pocket.
+
+## Swaps Quick Reference
+
+- Allowed: U→0x, 0x→U, 0x↔s0x
+- U→0x: oracle‑priced, haircut+tin; reserve split; outbound 0x from inventory then mint
+- 0x→U: decimals normalization; dynamic fee; reserves→pockets sourcing
+- 0x↔s0x: ERC‑4626 convertToShares/Assets; no UCE fee
+
 ---

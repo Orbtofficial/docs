@@ -12,7 +12,7 @@ This document is for integrators (protocols, front-ends, strategy builders, mark
 
 ## Canonical Interface
 
-See `./ISOxAsset.sol` for the full, documented interface. Key surface:
+See `../IS0xAsset.sol` for the full, documented interface. Key surface:
 
 - ERC20 shares: `totalSupply()`, `balanceOf()`, `transfer()`, `approve()`
 - ERC4626 vault: `deposit()`, `mint()`, `withdraw()`, `redeem()`, previews and conversions
@@ -96,7 +96,7 @@ Claim accrued rewards:
 
 ## Interface Reference
 
-Refer to `./ISOxAsset.sol`. It is intended to be stable for integrator consumption and versioned alongside the contract implementation.
+Refer to `../IS0xAsset.sol`. It is intended to be stable for integrator consumption and versioned alongside the contract implementation.
 
 # User Staking Module (USM)
 
