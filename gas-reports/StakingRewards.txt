@@ -1,0 +1,22 @@
+| Function | Representative test | Gas (units) | Isolation |
+|---|---|---:|---|
+| `exit()` | `test_exit_withdraws_and_claims()` | 269,433 | Yes (calls `withdraw` + `getReward` internally) |
+| `notifyRewardAmount(uint256)` | `test_notifyRewardAmount_sets_rate_and_period()` | 96,912 | Yes |
+| `setRewardsDuration(uint256)` | `test_setRewardsDuration_mid_period_rolls_leftover()` | 114,131 | Yes (mid-period case) |
+| `setRewardsDistribution(address)` | `test_onlyOwner_admin_updates()` | 27,256 | No (bundled admin updates) |
+| `recoverERC20(address,uint256)` | `test_recoverERC20_owner_only_and_not_staking_token()` | 65,513 | Yes |
+| `stake(uint256, uint16)` | `test_stake_with_referral_emits_event()` | 135,557 | Mostly (includes referral event) |
+| `stake(uint256)` | `test_stake_and_withdraw_updates_balances()` | 147,592 | No (includes `withdraw`) |
+| `withdraw(uint256)` | `test_stake_and_withdraw_updates_balances()` | 147,592 | No (includes `stake`) |
+| `getReward()` | `test_exit_withdraws_and_claims()` | 269,433 | No (via `exit()`) |
+| Rewards accrual (flow) | `test_rewards_accrual_single_user()` | 296,612 | No (stake + accrue + claim) |
+| Rewards accrual (2 users) | `test_rewards_two_users_proportional()` | 293,832 | No (multi-user flow) |
+| View functions (`totalSupply`, `balanceOf`, `earned`, `rewardPerToken`, etc.) | — | 0 (off-chain) | — |
+
+Notes and caveats:
+- Per-function exact gas requires isolated tests; above values reflect full test flows. Use them as representative/upper bounds for the invoked paths.
+- `exit()` includes internal `withdraw` and `getReward`, so its gas is naturally higher.
+- Admin update gas can vary based on state (mid-period vs idle; first-time set vs update).
+- Event-heavy paths (e.g., referral) add marginal cost.
+
+If you want, I can add dedicated micro-tests to isolate `stake` vs `withdraw` vs `getReward` individually to produce exact per-function gas numbers.

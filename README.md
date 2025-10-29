@@ -22,10 +22,18 @@ The ORBT protocol is a unified liquidity and asset management system centered ar
 - [Start Here](#start-here)
 - [Ecosystem & Install](#ecosystem--install)
 - [Concepts](#concepts)
+- [Architecture Overview](#architecture-overview)
+- [ORBT Landscape Diagram](#orbt-landscape-diagram)
 - [Integration APIs](#integration-apis)
 - [Contracts & Interfaces](#contracts--interfaces)
 - [Tutorials](#tutorials)
 - [Suggested Journeys by Role](#suggested-journeys-by-role)
+- [Module Repositories](#module-repositories)
+- [Use Cases](#use-cases)
+- [Testing & Development](#testing--development)
+- [Security](#security)
+- [Benchmarked Against](#benchmarked-against)
+- [Links & Resources](#links--resources)
 - [Community & Support](#community--support)
 - [Contributing](#contributing)
 - [License](#license)
@@ -41,7 +49,7 @@ If you are new to ORBT, read these in order:
 2. USM: User Staking Module — ERC-4626 staking over 0x assets
    - concepts: [USM](concepts/usm.md)
 3. UPM & Strategies — execution layer for yield and delegation
-   - concepts: [UPM & Strategies](concepts/upmAndStrategies.md)
+   - concepts: [UPM](concepts/upm.md), [Strategies](concepts/strategies.md)
 4. Allocator & Pocket — roles, economics, operations
    - concepts: [Allocator](concepts/allocator.md)
 5. Rewards — emissions and distribution
@@ -72,9 +80,13 @@ Then jump into the relevant Integration Guides below.
   - ERC‑4626 vaults over 0x assets; shares appreciate via exchange rate and optional rewards.
   - read: [concepts/usm.md](concepts/usm.md)
 
-- UPM & Strategies
-  - Pockets route calls via UPM to strategy adapters (e.g., money markets). Profit‑share on realized PnL.
-  - read: [concepts/upmAndStrategies.md](concepts/upmAndStrategies.md)
+- UPM (User Position Manager)
+  - Stateless orchestrator for single/batch calls from pockets; role-gated access.
+  - read: [concepts/upm.md](concepts/upm.md)
+
+- Strategies (Money Market & beyond)
+  - Zero-custody adapters with fee-on-profit; supply-only and OCH (credit delegation) modes.
+  - read: [concepts/strategies.md](concepts/strategies.md)
 
 - Allocator & Pocket
   - Credit issuers and liquidity partners; manage reserved 0x, pockets, and operational allowances.
@@ -83,6 +95,36 @@ Then jump into the relevant Integration Guides below.
 - Rewards
   - Emissions model, revenue distribution, fairness and risk.
   - read: [concepts/rewards.md](concepts/rewards.md)
+
+---
+
+## Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                     ORBT Protocol                       │
+├─────────────────────────────────────────────────────────┤
+│  Governance (Timelock + Multisig)                       │
+│       │                                                 │
+│       ├──► UCE (Swap & Credit)                          │
+│       │     • U ↔ 0x oracle-priced; dynamic redemption  │
+│       │     • Reserve policy & referral attribution     │
+│       │                                                 │
+│       ├──► USM (ERC-4626 Vaults)                        │
+│       │     • Accumulator-based yield + rewards         │
+│       │                                                 |
+|       ├──► Staking Rewards (ORBT staking)               │
+│       │     • Accumulator-based rewards                 │
+│       │                                                 │
+│       └──► UPM (Orchestrator) ─► Strategies             │
+│             • Batch txs, zero-custody adapters          │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+### ORBT Landscape Diagram
+
+![ORBT Landscape](assets/orbt-landscape.png)
 
 ---
 
@@ -135,11 +177,154 @@ See full API summaries: [api/README.md](api/README.md)
   - If incentives: [Rewards concept](concepts/rewards.md) → [Rewards integration](api/rewards/docs/IntegrationGuide.md)
 
 - Allocators / Liquidity Partners
-  - Read: [Allocator & Pocket](concepts/allocator.md) → [UPM Integrator Guide](api/upm/docs/IntegrationGuide.md) → [Strategies Guide](api/upm/docs/OrbtStrategiesGuide.md)
+  - Read: [Allocator & Pocket](concepts/allocator.md) → [UPM concept](concepts/upm.md) → [Strategies concept](concepts/strategies.md) → [UPM Integrator Guide](api/upm/docs/IntegrationGuide.md)
 
 - Smart Contract Engineers
   - Skim: [Contracts & Interfaces](#contracts--interfaces) → open the relevant interfaces
   - Reference: [api/README.md](api/README.md)
+
+---
+
+## Module Repositories
+
+- UCE (Unified Collateral Engine): Core swap engine and credit allocation
+  - Repo: https://github.com/Orbtofficial/uce-v1
+- USM (User Staking Module): ERC-4626 yield-bearing vaults for 0x assets
+  - Repo: https://github.com/Orbtofficial/usm
+- Governance: Timelocked multi-sig parameter updates
+  - Repo: https://github.com/Orbtofficial/orbt-governance-v1
+- Rewards: ORBT token staking rewards distribution
+  - Repo: https://github.com/Orbtofficial/rewards
+- UPM (User Position Manager): Stateless transaction orchestrator
+  - Repo: https://github.com/Orbtofficial/upm
+- Strategies (Core): Strategy base + adapters
+  - Repo: https://github.com/Orbtofficial/strategy-core
+
+---
+
+## Use Cases
+
+### User: Earn Yield on Bitcoin
+
+```solidity
+// 1. Swap WBTC → 0xBTC
+uce.swapExactIn(WBTC, OX_BTC, 1e8, user, 0);
+
+// 2. Stake 0xBTC → s0xBTC (ERC-4626)
+IERC4626(s0xBTC).deposit(1e18, user);
+
+// ... accrue yield ...
+
+// 3. Unstake back to 0xBTC
+IERC4626(s0xBTC).redeem(shares, user, user);
+
+// 4. Redeem 0xBTC → WBTC if desired
+uce.swapExactIn(OX_BTC, WBTC, 1.05e18, user, 0);
+```
+
+### Allocator: Provide Professional Liquidity
+
+```solidity
+// 1. Governance onboards allocator (off-chain process)
+// 2. Admin mints allocator credit
+uce.allocatorCreditMint(allocator, 500e18);
+
+// 3. Users swap with allocator referral; U flows to pocket
+
+// 4. Deploy U to Aave via UPM → Strategy
+bytes memory data = abi.encodeWithSelector(
+    OrbtMMStrategy.supply.selector,
+    aToken,
+    pocket,
+    amount
+);
+IOrbitUPM(upm).doCall(address(orbtMMStrategy), data);
+
+// 5. Repay debt from earnings over time
+uce.allocatorRepay(UNDERLYING, repayAmount);
+```
+
+### Developer: Integrate ORBT UCE
+
+```solidity
+// Example helper using IOrbtUCE
+IOrbtUCE uce;
+
+function swapToOx(address u, address ox, uint256 amountU) external returns (uint256) {
+    IERC20(u).approve(address(uce), amountU);
+    return uce.swapExactIn(u, ox, amountU, msg.sender, 0);
+}
+```
+
+---
+
+## Testing & Development
+
+- In module repositories (see Module Repositories above):
+
+```bash
+# Build
+forge build
+
+# Tests
+forge test -vv
+
+# Gas report
+forge test --gas-report
+
+# Format
+forge fmt
+```
+
+---
+
+## Security
+
+### Audit Status
+
+| Auditor | Date | Version | Report | Status |
+|---------|------|---------|--------|--------|
+| [Pending] | TBD | v1.0.0 | [Link] | 🟡 In Progress |
+
+- Security contact: security@orbt.protocol
+- Audit status: share reports when available
+- Bug bounty: planned; scope and rewards to be published
+- Best practices: role-gated entrypoints, nonReentrant strategies, zero-custody invariants
+
+---
+
+## Benchmarked Against
+
+ORBT-UCE follows best practices from leading DeFi protocols:
+
+| Protocol | Pattern Adopted |
+|----------|-----------------|
+| **SkyMoney** | PSM mechanics (UCE swaps) |
+| **SkyMoney** | Yield  (Pockets) |
+| **Prisma** | Dynamic redemption rates (0xUSD redemption rate) |
+| **MakerDAO** | DSR accumulator pattern (USM interest accrual) |
+| **Synthetix** | StakingRewards (Rewards module) |
+| **Compound** | Timelock governance (Governance module) |
+| **Aave** | Supply-only and Credit Delegation integration (Strategies module) |
+| **Uniswap** | Documentation structure & repository organization |
+
+
+---
+
+## Links & Resources
+
+- Concepts index: [Concepts](#concepts)
+- API index: [api/README.md](api/README.md)
+- Tutorials: [tutorials/](tutorials/)
+- Module repositories: [Module Repositories](#module-repositories)
+
+---
+
+## ⚠️ Disclaimer
+
+This software is provided "as is", without warranty of any kind. Smart contracts hold financial value and may contain bugs. Users interact at their own risk. Please review our [Security Policy](./SECURITY.md) and conduct your own research before using the protocol.
+
+**Audit Status**: Pre-audit. Do not use with real funds until professionally audited.
 
 ---
 
@@ -151,9 +336,21 @@ See full API summaries: [api/README.md](api/README.md)
 
 ---
 
+## 🙏 Acknowledgments
+
+Built with support from:
+- OpenZeppelin (security libraries)
+- Foundry (development framework)
+- The Ethereum community
+- Our contributors and advisors
+
+Special thanks to the teams behind MakerDAO, Synthetix, Compound, Aave, and Uniswap for pioneering the patterns and best practices that inspired this protocol.
+
+---
+
 ## Contributing
 
-Improvements to docs are welcome. Submit a PR with clear, minimal changes. For larger structure changes, open an issue first to discuss navigation and scope.
+Improvements to docs are welcome. Submit a PR with clear, minimal changes. For larger structure changes, open an issue first to discuss navigation and scope. Please refer to [CONTRIBUTING](.github/CONTRIBUTING.md)
 
 ---
 
