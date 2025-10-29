@@ -1,5 +1,7 @@
 ## ORBT Staking Rewards
 
+Note on scope: This module is ONLY for staking the ORBT governance token. It is separate from USM/s0x vaults and does not stake 0xAssets. Governance may fund StakingRewards from protocol revenues, but accrual and mechanics here are independent of USM.
+
 This guide explains how DeFi protocols can integrate with the ORBT Staking Rewards contract to enable staking ORBT and earning rewards. It documents the on-chain API, roles, flows, caveats, and best practices so your integration is safe and reliable.
 
 ### Overview
@@ -206,5 +208,9 @@ await (await staking.getReward()).wait();
 ---
 
 For full ABI, import `IStakingRewards.sol` or consume the compiled artifact from your build system.
+
+See also:
+- Module README: `../README.md`
+- Rewards concepts and revenue sources: `../../../concepts/rewards.md`
 
 

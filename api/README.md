@@ -110,6 +110,7 @@ Money Market operations:
 - Concepts: [../concepts/rewards.md](../concepts/rewards.md)
 - Integration Guide: [rewards/docs/IntegrationGuide.md](rewards/docs/IntegrationGuide.md)
 - Interface: [rewards/IStakingRewards.sol](rewards/IStakingRewards.sol)
+ - Module README: [rewards/README.md](rewards/README.md)
 
 Views & state:
 - Tokens/roles: `rewardsToken()`, `stakingToken()`, `rewardsDistribution()`, `owner()`

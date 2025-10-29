@@ -10,7 +10,7 @@ Framework for distributing protocol rewards to stakeholders (e.g., stakers, allo
 
 ## Distribution Model (Typical)
 
-* **s0x Staker Rewards**: Periodic distributions to s0x holders or staking participants, pro-rata by **stake × time**.
+* **USM / s0x distributions**: Periodic distributions to s0x holders or staking participants, pro‑rata by **stake × time** (governance‑defined; implemented in USM context, not in StakingRewards).
 * **Allocator Incentives**: Optional programs rewarding liquidity reliability (e.g., uptime, allowance levels, fulfillment performance).
 * **Program Parameters**: Emission rate, reward asset(s), start/stop times, and eligibility predicates are governed and auditable.
 
@@ -31,3 +31,9 @@ Framework for distributing protocol rewards to stakeholders (e.g., stakers, allo
 * Index reward **events** for analytics.
 * Show **APR/APY estimates** derived from current emission rate and TVL, with caution about variability.
 * Surface **unclaimed amounts** and any **vesting** or **cooldown** in the UI.
+
+## Modules & Separation of Concerns
+
+- **StakingRewards (this API)**: ORBT governance token staking only (simple stream‑based emissions). No 0x/s0x staking here.
+- **USM**: ERC‑4626 vaults for 0xAssets; can be the locus for distributing protocol value to s0x holders when governed to do so.
+- **Governance**: Chooses how protocol revenues fund StakingRewards vs USM programs; parameters are on‑chain and auditable.
