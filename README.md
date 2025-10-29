@@ -4,12 +4,14 @@
 
 # ORBT Documentation
 
-[![Docs](https://img.shields.io/badge/Docs-Start%20Here-4c9aff)](#start-here)
-[![Solidity](https://img.shields.io/badge/Solidity-0.8.20%2B-363636?logo=solidity)](#contracts--interfaces)
-[![Foundry](https://img.shields.io/badge/Tested%20with-Foundry-2ea44f)](https://book.getfoundry.sh/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#license)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
-[![Made with Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-ff69b4)](#)
+[![Docs](https://img.shields.io/badge/Docs-Start%20Here-4c9aff?style=for-the-badge&logo=readthedocs&logoColor=white)](#start-here)
+[![Solidity](https://img.shields.io/badge/Solidity-0.8.20%2B-363636?style=for-the-badge&logo=solidity&logoColor=white)](#contracts--interfaces)
+[![Foundry](https://img.shields.io/badge/Tested%20with-Foundry-2ea44f?style=for-the-badge&logo=ethereum&logoColor=white)](https://book.getfoundry.sh/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logo=mit&logoColor=white)](#license)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge&logo=git&logoColor=white)](#contributing)
+[![Security](https://img.shields.io/badge/Security-Audited-red?style=for-the-badge&logo=shield-check&logoColor=white)](#security)
+[![Cross-Chain](https://img.shields.io/badge/Cross--Chain-Multi--Network-purple?style=for-the-badge&logo=ethereum&logoColor=white)](#cross-chain-operations)
+[![Made with Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-ff69b4?style=for-the-badge)](#)
 
 </div>
 
@@ -101,6 +103,8 @@ Then jump into the relevant Integration Guides below.
 
 ## Concepts
 
+[![Concepts](https://img.shields.io/badge/Concepts-Core%20Mechanics-blue?style=flat-square&logo=book&logoColor=white)](#concepts) [![UCE](https://img.shields.io/badge/UCE-Swap%20Engine-4c9aff?style=flat-square)](#) [![USM](https://img.shields.io/badge/USM-Staking-yellow?style=flat-square)](#) [![UPM](https://img.shields.io/badge/UPM-Orchestrator-green?style=flat-square)](#)
+
 Core protocol concepts and mechanics. Read these to understand how ORBT works:
 
 - **UCE: Unified Collateral Engine**
@@ -165,6 +169,8 @@ Core protocol concepts and mechanics. Read these to understand how ORBT works:
 
 ## Integration APIs
 
+[![API](https://img.shields.io/badge/API-Integration%20Guides-orange?style=flat-square&logo=code&logoColor=white)](#integration-apis) [![UCE API](https://img.shields.io/badge/UCE-API-blue?style=flat-square)](#) [![UPM API](https://img.shields.io/badge/UPM-API-green?style=flat-square)](#) [![USM API](https://img.shields.io/badge/USM-API-yellow?style=flat-square)](#) [![Rewards API](https://img.shields.io/badge/Rewards-API-purple?style=flat-square)](#)
+
 - UCE Swaps Integration
   - guide: [api/uce/docs/IntegrationGuide.md](api/uce/docs/IntegrationGuide.md)
   - interface: [api/uce/IOrbtUCE.sol](api/uce/IOrbtUCE.sol)
@@ -212,6 +218,8 @@ See full API summaries: [api/README.md](api/README.md)
 
 ## Cross-Chain Operations
 
+[![Cross-Chain](https://img.shields.io/badge/Cross--Chain-Multi--Network-purple?style=for-the-badge&logo=ethereum&logoColor=white)](#cross-chain-operations) [![Across](https://img.shields.io/badge/Across-Integration-FF6B6B?style=flat-square)](#) [![Bridge](https://img.shields.io/badge/Bridge-Mechanics-4ECDC4?style=flat-square)](#)
+
 ORBT supports cross-chain asset flows through integration with bridge protocols like Across. This section covers bridge mechanics, asset flows, multi-chain deployment, and integration patterns.
 
 **Key Topics:**
@@ -231,6 +239,8 @@ ORBT supports cross-chain asset flows through integration with bridge protocols 
 ---
 
 ## Economics
+
+[![Economics](https://img.shields.io/badge/Economics-Fee%20Model-gold?style=for-the-badge&logo=bitcoin&logoColor=white)](#economics) [![Fees](https://img.shields.io/badge/Fees-Structure-FFD700?style=flat-square)](#) [![Tokenomics](https://img.shields.io/badge/Tokenomics-ORBT-yellow?style=flat-square)](#) [![Treasury](https://img.shields.io/badge/Treasury-Management-FFA500?style=flat-square)](#)
 
 Complete documentation of ORBT's economic model, including fee structures, revenue distribution, tokenomics, treasury management, and yield sources. Essential for understanding protocol incentives and sustainability.
 
@@ -253,6 +263,8 @@ Complete documentation of ORBT's economic model, including fee structures, reven
 
 ## Quantitative Analysis & Risk Modeling
 
+[![Quantitative](https://img.shields.io/badge/Quantitative-Risk%20Models-teal?style=for-the-badge&logo=calculator&logoColor=white)](#quantitative-analysis--risk-modeling) [![Reserve Policy](https://img.shields.io/badge/Reserve-Policy-20B2AA?style=flat-square)](#) [![Credit Modeling](https://img.shields.io/badge/Credit-Modeling-5F9EA0?style=flat-square)](#)
+
 Mathematical models, quantitative analysis, and risk frameworks for understanding protocol mechanics at a deeper level. Essential for allocators, risk analysts, and quantitative researchers.
 
 **Key Topics:**
@@ -269,6 +281,8 @@ Mathematical models, quantitative analysis, and risk frameworks for understandin
 ---
 
 ## Governance
+
+[![Governance](https://img.shields.io/badge/Governance-Multisig%20%2B%20Timelock-indigo?style=for-the-badge&logo=vote-yea&logoColor=white)](#governance) [![Voting](https://img.shields.io/badge/Voting-Process-6A5ACD?style=flat-square)](#) [![Proposals](https://img.shields.io/badge/Proposals-EIP--712-9370DB?style=flat-square)](#)
 
 How ORBT is governed, including parameter updates, voting mechanisms, proposal processes, and governance action types. Critical for understanding protocol changes and decision-making.
 
@@ -291,6 +305,8 @@ How ORBT is governed, including parameter updates, voting mechanisms, proposal p
 
 ## Operations
 
+[![Operations](https://img.shields.io/badge/Operations-Monitoring%20%26%20Alerts-cyan?style=for-the-badge&logo=server&logoColor=white)](#operations) [![Monitoring](https://img.shields.io/badge/Monitoring-Metrics-00CED1?style=flat-square)](#) [![Onboarding](https://img.shields.io/badge/Onboarding-Allocators-4682B4?style=flat-square)](#) [![Incident Response](https://img.shields.io/badge/Incident-Response-red?style=flat-square)](#)
+
 Operational procedures, monitoring guidelines, and operational best practices for running ORBT infrastructure. Essential for operators, allocators, and protocol maintainers.
 
 **Key Topics:**
@@ -311,6 +327,8 @@ Operational procedures, monitoring guidelines, and operational best practices fo
 
 ## Best Practices
 
+[![Best Practices](https://img.shields.io/badge/Best%20Practices-Safe%20Usage-success?style=for-the-badge&logo=check-circle&logoColor=white)](#best-practices)
+
 Operational and integration best practices for users, allocators, developers, and operators. Guidelines for safe and effective protocol usage.
 
 **Documentation:**
@@ -319,6 +337,8 @@ Operational and integration best practices for users, allocators, developers, an
 ---
 
 ## FAQ
+
+[![FAQ](https://img.shields.io/badge/FAQ-Common%20Questions-info?style=for-the-badge&logo=question-circle&logoColor=white)](#faq)
 
 Frequently asked questions covering common protocol operations, mechanics, and troubleshooting.
 
@@ -329,6 +349,8 @@ Frequently asked questions covering common protocol operations, mechanics, and t
 
 ## Glossary
 
+[![Glossary](https://img.shields.io/badge/Glossary-Terminology-lightgrey?style=for-the-badge&logo=book&logoColor=black)](#glossary)
+
 Comprehensive glossary of ORBT terminology, roles, and concepts.
 
 **Documentation:**
@@ -337,6 +359,8 @@ Comprehensive glossary of ORBT terminology, roles, and concepts.
 ---
 
 ## Complete Documentation Index
+
+[![Docs Index](https://img.shields.io/badge/Docs-Complete%20Index-informational?style=for-the-badge&logo=list&logoColor=white)](#complete-documentation-index)
 
 ### Core Concepts
 
@@ -451,6 +475,8 @@ Comprehensive glossary of ORBT terminology, roles, and concepts.
 
 ## Suggested Journeys by Role
 
+[![Journeys](https://img.shields.io/badge/Journeys-By%20Role-9B59B6?style=for-the-badge&logo=map&logoColor=white)](#suggested-journeys-by-role) [![Builders](https://img.shields.io/badge/Builders-Integrators-3498DB?style=flat-square)](#) [![Allocators](https://img.shields.io/badge/Allocators-Liquidity-2ECC71?style=flat-square)](#) [![Engineers](https://img.shields.io/badge/Engineers-Smart%20Contracts-E74C3C?style=flat-square)](#)
+
 - Builders / Integrators
   - Read: [UCE](concepts/uce.md) → [UCE Integration](api/uce/docs/IntegrationGuide.md)
   - If staking: [USM concept](concepts/usm.md) → [USM integration](api/usm/docs/IntegrationGuide.md)
@@ -466,6 +492,8 @@ Comprehensive glossary of ORBT terminology, roles, and concepts.
 ---
 
 ## Module Repositories
+
+[![Modules](https://img.shields.io/badge/Modules-Source%20Code-2C3E50?style=for-the-badge&logo=github&logoColor=white)](#module-repositories) [![UCE](https://img.shields.io/badge/UCE-Repo-blue?style=flat-square&logo=github)](#) [![USM](https://img.shields.io/badge/USM-Repo-yellow?style=flat-square&logo=github)](#) [![UPM](https://img.shields.io/badge/UPM-Repo-green?style=flat-square&logo=github)](#) [![Strategies](https://img.shields.io/badge/Strategies-Repo-purple?style=flat-square&logo=github)](#)
 
 - UCE (Unified Collateral Engine): Core swap engine and credit allocation
   - Repo: https://github.com/Orbtofficial/uce-v1
@@ -483,6 +511,8 @@ Comprehensive glossary of ORBT terminology, roles, and concepts.
 ---
 
 ## Use Cases
+
+[![Use Cases](https://img.shields.io/badge/Use%20Cases-Examples-success?style=for-the-badge&logo=lightbulb&logoColor=white)](#use-cases) [![User](https://img.shields.io/badge/User-Yield-Earned-27AE60?style=flat-square)](#) [![Allocator](https://img.shields.io/badge/Allocator-Liquidity-16A085?style=flat-square)](#) [![Developer](https://img.shields.io/badge/Developer-Integration-2ECC71?style=flat-square)](#)
 
 ### User: Earn Yield on Bitcoin
 
@@ -540,6 +570,8 @@ function swapToOx(address u, address ox, uint256 amountU) external returns (uint
 
 ## Testing & Development
 
+[![Testing](https://img.shields.io/badge/Testing-Foundry-orange?style=for-the-badge&logo=test-tube&logoColor=white)](#testing--development) [![Foundry](https://img.shields.io/badge/Foundry-Build%20%26%20Test-FF6B35?style=flat-square)](#) [![Gas](https://img.shields.io/badge/Gas-Report-FFA500?style=flat-square)](#)
+
 - In module repositories (see Module Repositories above):
 
 ```bash
@@ -559,6 +591,8 @@ forge fmt
 ---
 
 ## Security
+
+[![Security](https://img.shields.io/badge/Security-Audited-red?style=for-the-badge&logo=shield-check&logoColor=white)](#security) [![Threat Model](https://img.shields.io/badge/Threat-Model-DC143C?style=flat-square)](#) [![Access Control](https://img.shields.io/badge/Access-Control-RBAC-8B0000?style=flat-square)](#) [![Bug Bounty](https://img.shields.io/badge/Bug-Bounty-FF6347?style=flat-square)](#)
 
 ORBT employs a multi-layered security approach with comprehensive threat modeling, access controls, and economic attack mitigations.
 
@@ -586,6 +620,8 @@ ORBT employs a multi-layered security approach with comprehensive threat modelin
 
 ## Benchmarked Against
 
+[![Benchmarks](https://img.shields.io/badge/Benchmarked-Against%20Leaders-lightblue?style=for-the-badge&logo=trophy&logoColor=white)](#benchmarked-against)
+
 ORBT-UCE follows best practices from leading DeFi protocols:
 
 | Protocol | Pattern Adopted |
@@ -603,6 +639,8 @@ ORBT-UCE follows best practices from leading DeFi protocols:
 ---
 
 ## Links & Resources
+
+[![Resources](https://img.shields.io/badge/Resources-Links%20%26%20Docs-6C5CE7?style=for-the-badge&logo=link&logoColor=white)](#links--resources)
 
 - **Concepts**: [Core Concepts](#concepts)
 - **API Index**: [api/README.md](api/README.md)
@@ -626,6 +664,8 @@ This software is provided "as is", without warranty of any kind. Smart contracts
 
 ## Community & Support
 
+[![Community](https://img.shields.io/badge/Community-Support-FF6B9D?style=for-the-badge&logo=heart&logoColor=white)](#community--support) [![Issues](https://img.shields.io/badge/Issues-GitHub-181717?style=flat-square&logo=github)](#) [![Security](https://img.shields.io/badge/Security-Contact-red?style=flat-square&logo=shield)](#)
+
 - Issues: use the templates under [.github](.github) to report bugs or request docs
 - PRs: follow [CONTRIBUTING](.github/CONTRIBUTING.md)
 - Security: security@orbt.protocol
@@ -645,6 +685,8 @@ Special thanks to the teams behind MakerDAO, Synthetix, Compound, Aave, and Unis
 ---
 
 ## Contributing
+
+[![Contributing](https://img.shields.io/badge/Contributing-Welcome-success?style=for-the-badge&logo=hands-helping&logoColor=white)](#contributing) [![PRs](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat-square&logo=git-pull-request)](#) [![Documentation](https://img.shields.io/badge/Docs-Improvements-blue?style=flat-square)](#)
 
 Improvements to docs are welcome. Submit a PR with clear, minimal changes. For larger structure changes, open an issue first to discuss navigation and scope. Please refer to [CONTRIBUTING](.github/CONTRIBUTING.md)
 
