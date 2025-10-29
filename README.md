@@ -37,6 +37,7 @@ The ORBT protocol is a unified liquidity and asset management system centered ar
 - [Governance](#governance)
 - [Operations](#operations)
 - [Security](#security)
+- [Deployment Status](#deployment-status)
 - [Best Practices](#best-practices)
 - [FAQ](#faq)
 - [Glossary](#glossary)
@@ -618,11 +619,29 @@ ORBT employs a multi-layered security approach with comprehensive threat modelin
 
 ---
 
+## Deployment Status
+
+[![Deployment](https://img.shields.io/badge/Deployment-Pre--deployment-yellow?style=for-the-badge&logo=rocket&logoColor=white)](#deployment-status) [![Status](https://img.shields.io/badge/Status-Pre--audit-orange?style=flat-square)](#)
+
+ORBT Protocol is currently in **pre-deployment** phase. The protocol is being developed and audited before mainnet launch.
+
+### Network Status
+
+| Network | Status | Contracts |
+|---------|--------|-----------|
+| **Ethereum Mainnet** | 🔴 Not Deployed | Coming soon |
+| **Sepolia Testnet** | 🟡 Planned | Coming soon |
+| **Other Networks** | 🟡 Planned | Coming soon |
+
+**Contract Addresses**: Coming soon after deployment
+
+---
+
 ## Benchmarked Against
 
 [![Benchmarks](https://img.shields.io/badge/Benchmarked-Against%20Leaders-lightblue?style=for-the-badge&logo=trophy&logoColor=white)](#benchmarked-against)
 
-ORBT-UCE follows best practices from leading DeFi protocols:
+ORBT Protocol follows best practices from leading DeFi protocols:
 
 | Protocol | Pattern Adopted |
 |----------|-----------------|
@@ -688,7 +707,9 @@ Special thanks to the teams behind MakerDAO, Synthetix, Compound, Aave, and Unis
 
 [![Contributing](https://img.shields.io/badge/Contributing-Welcome-success?style=for-the-badge&logo=hands-helping&logoColor=white)](#contributing) [![PRs](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat-square&logo=git-pull-request)](#) [![Documentation](https://img.shields.io/badge/Docs-Improvements-blue?style=flat-square)](#)
 
-Improvements to docs are welcome. Submit a PR with clear, minimal changes. For larger structure changes, open an issue first to discuss navigation and scope. Please refer to [CONTRIBUTING](.github/CONTRIBUTING.md)
+This repository is focused on **documentation only**. Improvements to docs are welcome. Submit a PR with clear, minimal changes. For larger structure changes, open an issue first to discuss navigation and scope.
+
+**For code contributions**: Please contribute to the respective module repositories (UCE, USM, UPM, Strategies, Governance, Rewards). See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ---
 
