@@ -15,6 +15,8 @@
 
 The ORBT protocol is a unified liquidity and asset management system centered around the Unified Collateral Engine (UCE), User Staking Module (USM), and an execution layer (UPM + Strategies). This index helps you navigate concepts, integration guides, and contract surfaces quickly.
 
+> A unified, security‑first liquidity and asset management protocol for 0xAssets.
+
 ---
 
 ## Table of Contents
@@ -58,6 +60,15 @@ If you are new to ORBT, read these in order:
 Then jump into the relevant Integration Guides below.
 
 ---
+
+## Quick Links
+
+- Concepts → APIs: [Concepts](#concepts) → [Integration APIs](#integration-apis)
+- API index: [api/README.md](api/README.md)
+- Module READMEs: [UCE](api/uce/README.md) · [UPM](api/upm/README.md) · [Strategies](api/strategies/README.md) · [USM](api/usm/README.md) · [Staking Rewards](api/rewards/README.md)
+- Security: [overview](security/overview.md) · [threat model](security/threat-model.md) · [invariants](security/invariants.md)
+- Deployment: [deployment/overview.md](deployment/overview.md)
+- Governance: [governance/overview.md](governance/overview.md)
 
 ## Ecosystem & Install
 
@@ -137,7 +148,8 @@ Then jump into the relevant Integration Guides below.
 - UPM and Strategies Integration (for allocators/integrators)
   - integrator guide: [api/upm/docs/IntegrationGuide.md](api/upm/docs/IntegrationGuide.md)
   - architecture & details: [api/upm/docs/OrbtStrategiesGuide.md](api/upm/docs/OrbtStrategiesGuide.md)
-  - interfaces: [api/upm/IOrbitUPM.sol](api/upm/IOrbitUPM.sol), [api/upm/IBaseStrategy.sol](api/upm/IBaseStrategy.sol), [api/upm/IOrbtMMStrategy.sol](api/upm/IOrbtMMStrategy.sol)
+  - UPM interface: [api/upm/IOrbitUPM.sol](api/upm/IOrbitUPM.sol)
+  - Strategies: [api/strategies/docs/IntegrationGuide.md](api/strategies/docs/IntegrationGuide.md), [api/strategies/IBaseStrategy.sol](api/strategies/IBaseStrategy.sol), [api/strategies/IOrbtMMStrategy.sol](api/strategies/IOrbtMMStrategy.sol)
 
 - USM / s0x Vaults
   - integration guide: [api/usm/docs/IntegrationGuide.md](api/usm/docs/IntegrationGuide.md)
@@ -147,6 +159,7 @@ Then jump into the relevant Integration Guides below.
 - Staking Rewards (ORBT)
   - integration guide: [api/rewards/docs/IntegrationGuide.md](api/rewards/docs/IntegrationGuide.md)
   - interface: [api/rewards/IStakingRewards.sol](api/rewards/IStakingRewards.sol)
+  - module README: [api/rewards/README.md](api/rewards/README.md)
 
 > API index: [api/README.md](api/README.md)
 
@@ -155,12 +168,99 @@ Then jump into the relevant Integration Guides below.
 ## Interfaces
 
 - UCE: [api/uce/IOrbtUCE.sol](api/uce/IOrbtUCE.sol)
-- UPM & Strategies: [api/upm/IOrbitUPM.sol](api/upm/IOrbitUPM.sol), [api/upm/IBaseStrategy.sol](api/upm/IBaseStrategy.sol), [api/upm/IOrbtMMStrategy.sol](api/upm/IOrbtMMStrategy.sol)
+- UPM & Strategies: [api/upm/IOrbitUPM.sol](api/upm/IOrbitUPM.sol), [api/strategies/IBaseStrategy.sol](api/strategies/IBaseStrategy.sol), [api/strategies/IOrbtMMStrategy.sol](api/strategies/IOrbtMMStrategy.sol)
 - USM: [api/usm/IS0xAsset.sol](api/usm/IS0xAsset.sol)
 - Rewards: [api/rewards/IStakingRewards.sol](api/rewards/IStakingRewards.sol)
 
 See full API summaries: [api/README.md](api/README.md)
 ---
+
+## API Module READMEs (Deep Links)
+
+- UCE: [api/uce/README.md](api/uce/README.md)
+- UPM: [api/upm/README.md](api/upm/README.md)
+- Strategies: [api/strategies/README.md](api/strategies/README.md)
+- USM: [api/usm/README.md](api/usm/README.md)
+- Staking Rewards: [api/rewards/README.md](api/rewards/README.md)
+
+---
+
+## Docs Directory Navigator
+
+- Concepts
+  - UCE: [concepts/uce.md](concepts/uce.md)
+  - USM: [concepts/usm.md](concepts/usm.md)
+  - UPM: [concepts/upm.md](concepts/upm.md)
+  - Strategies: [concepts/strategies.md](concepts/strategies.md)
+  - Allocator: [concepts/allocator.md](concepts/allocator.md)
+  - Pocket: [concepts/pocket.md](concepts/pocket.md)
+  - Rewards: [concepts/rewards.md](concepts/rewards.md)
+
+- API
+  - Index: [api/README.md](api/README.md)
+  - UCE: [api/uce/docs/IntegrationGuide.md](api/uce/docs/IntegrationGuide.md), [Errors](api/uce/docs/errors.md), [Events](api/uce/docs/events.md), [Interface](api/uce/IOrbtUCE.sol)
+  - UPM: [api/upm/docs/IntegrationGuide.md](api/upm/docs/IntegrationGuide.md), [OrbtStrategiesGuide](api/upm/docs/OrbtStrategiesGuide.md), [Interface](api/upm/IOrbitUPM.sol)
+  - Strategies: [api/strategies/docs/IntegrationGuide.md](api/strategies/docs/IntegrationGuide.md), [Errors](api/strategies/docs/errors.md), [Events](api/strategies/docs/events.md), [Base](api/strategies/IBaseStrategy.sol), [MoneyMarket](api/strategies/IOrbtMMStrategy.sol)
+  - USM: [api/usm/docs/IntegrationGuide.md](api/usm/docs/IntegrationGuide.md), [Errors](api/usm/docs/errors.md), [Events](api/usm/docs/events.md), [Interface](api/usm/IS0xAsset.sol)
+  - Staking Rewards: [api/rewards/docs/IntegrationGuide.md](api/rewards/docs/IntegrationGuide.md), [Errors](api/rewards/docs/errors.md), [Events](api/rewards/docs/events.md), [Interface](api/rewards/IStakingRewards.sol)
+
+- Cross‑Chain
+  - Overview: [cross-chain/overview.md](cross-chain/overview.md)
+  - Across integration: [cross-chain/across-integration.md](cross-chain/across-integration.md)
+  - Asset flows: [cross-chain/asset-flows.md](cross-chain/asset-flows.md)
+  - Bridge mechanics: [cross-chain/bridge-mechanics.md](cross-chain/bridge-mechanics.md)
+  - Multi‑chain deployment: [cross-chain/multi-chain-deployment.md](cross-chain/multi-chain-deployment.md)
+
+- Deployment
+  - Overview: [deployment/overview.md](deployment/overview.md)
+  - Testnet: [deployment/testnet-deployment.md](deployment/testnet-deployment.md)
+  - Mainnet: [deployment/mainnet-deployment.md](deployment/mainnet-deployment.md)
+  - Initial config: [deployment/initial-configuration.md](deployment/initial-configuration.md)
+
+- Governance
+  - Overview: [governance/overview.md](governance/overview.md)
+  - Process & voting: [governance/process.md](governance/process.md), [governance/voting.md](governance/voting.md)
+  - Action types & EIP‑712: [governance/action-types.md](governance/action-types.md), [governance/eip-712-signatures.md](governance/eip-712-signatures.md)
+  - Proposal examples: [governance/proposal-examples.md](governance/proposal-examples.md)
+
+- Operations
+  - Monitoring & alerts: [operations/monitoring.md](operations/monitoring.md), [operations/alerts.md](operations/alerts.md)
+  - Allocator onboarding: [operations/allocator-onboarding.md](operations/allocator-onboarding.md)
+  - Incident response: [operations/incident-response.md](operations/incident-response.md)
+  - Parameter adjustment: [operations/parameter-adjustment.md](operations/parameter-adjustment.md)
+  - Governance procedures: [operations/governance-procedures.md](operations/governance-procedures.md)
+
+- Security
+  - Overview: [security/overview.md](security/overview.md)
+  - Threat model: [security/threat-model.md](security/threat-model.md)
+  - Invariants: [security/invariants.md](security/invariants.md)
+  - Oracle security: [security/oracle-security.md](security/oracle-security.md)
+  - Bug bounty: [security/bug-bounty.md](security/bug-bounty.md)
+  - Audits: [security/audit-reports/README.md](security/audit-reports/README.md)
+
+- Economics
+  - Overview & fee structure: [economics/overview.md](economics/overview.md), [economics/fee-structure.md](economics/fee-structure.md)
+  - Revenue distribution: [economics/revenue-distribution.md](economics/revenue-distribution.md)
+  - Tokenomics & treasury: [economics/tokenomics.md](economics/tokenomics.md), [economics/treasury-model.md](economics/treasury-model.md)
+  - Yield sources: [economics/yield-sources.md](economics/yield-sources.md)
+
+- Quantitative & Risk
+  - Capital efficiency: [quantitative/capital-efficiency.md](quantitative/capital-efficiency.md)
+  - Reserve policy: [quantitative/reserve-policy.md](quantitative/reserve-policy.md)
+  - Credit modeling: [quantitative/credit-modeling.md](quantitative/credit-modeling.md)
+  - Yield analysis & fee curves: [quantitative/yield-analysis.md](quantitative/yield-analysis.md), [quantitative/fee-curves.md](quantitative/fee-curves.md)
+
+- Tutorials
+  - Quickstart: [tutorials/Quickstart.md](tutorials/Quickstart.md)
+  - DeFi Onboarding: [tutorials/DefiOnboarding.md](tutorials/DefiOnboarding.md)
+
+- Misc
+  - FAQ: [FAQ.md](FAQ.md)
+  - Glossary: [glossary.md](glossary.md)
+  - Performance: [performance.md](performance.md)
+  - Changelog: [CHANGELOG.md](CHANGELOG.md)
+  - Contribution guide: [CONTRIBUTING.md](CONTRIBUTING.md)
+  - License: [LICENSE](LICENSE)
 
 ## Tutorials
 
