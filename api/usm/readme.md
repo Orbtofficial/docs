@@ -13,11 +13,11 @@ Yield-bearing ERC-4626 vaults over 0x assets. Users deposit 0x tokens and receiv
 
 ## Quick Links
 
-- Integration guide: [docs/IntegrationGuide.md](docs/IntegrationGuide.md)
-- Events: [docs/events.md](docs/events.md)
-- Errors: [docs/errors.md](docs/errors.md)
-- Interface: [IS0xAsset.sol](IS0xAsset.sol)
-- Conceptual overview: [../../concepts/usm.md](../../concepts/usm.md)
+- Integration guide: `docs/IntegrationGuide.md`
+- Events: `docs/events.md`
+- Errors: `docs/errors.md`
+- Interface: `IS0xAsset.sol`
+- Conceptual overview: `../../concepts/usm.md`
 
 ## Basic Flow
 

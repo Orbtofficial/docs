@@ -89,10 +89,10 @@ Surface:
 
 ## Strategies: Money Market Adapter
 
-- Concepts: [../concepts/upmAndStrategies.md](../concepts/upmAndStrategies.md)
-- Strategies Guide: [upm/docs/OrbtStrategiesGuide.md](upm/docs/OrbtStrategiesGuide.md)
-- Base Interface: [upm/IBaseStrategy.sol](upm/IBaseStrategy.sol)
-- Money Market Interface: [upm/IOrbtMMStrategy.sol](upm/IOrbtMMStrategy.sol)
+- Concepts: [../concepts/strategies.md](../concepts/strategies.md)
+- Integration Guide: [strategies/docs/IntegrationGuide.md](strategies/docs/IntegrationGuide.md)
+- Base Interface: [strategies/IBaseStrategy.sol](strategies/IBaseStrategy.sol)
+- Money Market Interface: [strategies/IOrbtMMStrategy.sol](strategies/IOrbtMMStrategy.sol)
 
 Base strategy views & governance:
 - `upm()`, `treasury()`, `feeBps()`, `principalOf(aToken, pocket) → amount`
