@@ -12,7 +12,7 @@ This section enumerates the primary events and their semantics. Event ordering w
   - Allocator allowlist toggle
 
 - `CreditMinted(address indexed allocator, uint256 amount)`
-  - Ox credit minted to UCE and reserved to allocator; increases effective debt
+  - 0xAssets credit minted to UCE contract and reserved to allocator; increases `baseDebt` by `amount` (debt tracked directly in 0xAsset units)
 
 - `CreditLineUpdated(address indexed allocator, uint128 ceiling, uint128 dailyCap)`
   - Line-of-credit parameters updated

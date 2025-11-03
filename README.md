@@ -355,7 +355,7 @@ Frequently asked questions covering common protocol operations, mechanics, and t
 Comprehensive glossary of ORBT terminology, roles, and concepts.
 
 **Documentation:**
-- Glossary: [glossary.md](glossary.md) - Definitions for ADMIN, POCKET, UPM, UCE, sOxAsset, Ox, S-Asset, Pocket, Debt Index, Tin, Redemption Fee, and more
+- Glossary: [glossary.md](glossary.md) - Definitions for ADMIN, POCKET, UPM, UCE, s0xAsset, 0xAssets, S-Asset, Pocket, Base Debt, Wipe Epoch, Tin, Redemption Fee, and more
 
 ---
 

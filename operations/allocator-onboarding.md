@@ -8,7 +8,7 @@ This guide covers the end-to-end process to onboard an allocator with pockets an
 - Understanding of reserve policy and referral attribution
 
 #### 2) Credit Line Request
-- Provide requested `ceiling` (max effective Ox debt) and `dailyCap` (Ox per UTC day)
+- Provide requested `ceiling` (max debt in 0xAsset units) and `dailyCap` (0xAssets per UTC day)
 - Provide desired `borrowFeeBps` (subject to governance)
 
 #### 3) Pocket Provisioning
@@ -19,12 +19,14 @@ This guide covers the end-to-end process to onboard an allocator with pockets an
 - Referral code is generated and emitted; share with integration partners
 
 #### 4) Minting Inventory
-- Allocator may call `allocatorCreditMint(allocator, amount)` (self-call) to mint Ox inventory up to dailyCap/ceiling
-- Monitor `reservedOx(allocator)` vs. effective debt
+- Allocator may call `allocatorCreditMint(allocator, amount)` (self-call) to mint 0xAssets inventory up to dailyCap/ceiling
+- Monitor `reservedZeroX(allocator)` vs. outstanding debt (`baseDebt`)
+- Debt is tracked directly in 0xAsset units; `allocatorDebt(allocator)` returns `baseDebt` (or 0 if `debtEpoch < wipeEpoch`)
 
 #### 5) Repayment Flow
 - Repay in underlying via `allocatorRepay(asset, assets)`; borrow fee is skimmed to treasury then principal reduces debt
-- Track `debtIndex` and outstanding effective debt via `allocatorDebt(allocator)`
+- Debt reduction: underlying converted to 0x-equivalent via decimals normalization, then `baseDebt` is reduced directly
+- Track outstanding debt via `allocatorDebt(allocator)` which returns `baseDebt` (no index scaling)
 
 #### 6) Operations Checklist
 - Monitor pocket allowances vs. weekly outflows; keep headroom ≥ 2× 95th percentile daily pulls

@@ -10,6 +10,7 @@
 - **OX**: Same as 0x/Ox, refers to synthetic assets. Used interchangeably but "0xAssets" is the preferred documentation term.
 - **S-Asset**: ERC4626 wrapper whose `asset()` is a 0xAsset
 - **Pocket**: Custody address used for asset routing (global or allocator-specific)
-- **Debt Index**: Global index scaling base debts to effective debt
+- **Base Debt**: Outstanding debt tracked directly in 0xAsset units per allocator. No index scaling is applied; debt equals the amount of 0xAssets minted via credit (minus repayments).
+- **Wipe Epoch**: Global epoch marker for lazy debt wiping. Allocators with `debtEpoch < wipeEpoch` have their debt masked to zero until touched (credit mint/repay operations).
 - **Tin**: U→0x mint fee (bps)
 - **Redemption Fee**: 0x→U fee (dynamic, 0–5%)

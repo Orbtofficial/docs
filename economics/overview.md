@@ -14,9 +14,10 @@ This document summarizes the economic levers in UCE, strategies, and bridge adap
 
 #### Credit and Debt
 - Allocators mint 0xAssets under ceiling/daily caps via credit. **Critical**: These minted 0xAssets remain in the UCE contract and cannot leave unless swapped with equivalent underlying assets. This ensures all 0xAssets in circulation are backed 1:1 by equivalent underlying in UCE, maintaining the peg.
-- Debt tracked via `debtIndex`
-- Repay in underlying reduces debt in Ox-equivalent; borrow fee collected first
-- Protocol can draw reserved Ox pro-rata from allocators for protocol sends, reducing base debt proportionally
+- Debt is tracked directly in 0xAsset units as `baseDebt` per allocator (no index scaling)
+- Ceiling enforcement: `allocatorDebt(allocator) + mintAmount ≤ ceiling`, where `allocatorDebt = baseDebt` (when `debtEpoch ≥ wipeEpoch`, else 0)
+- Repay in underlying reduces debt in 0x-equivalent (via decimals normalization); borrow fee collected first
+- Protocol can draw reserved 0xAssets pro-rata from allocators for protocol sends, reducing base debt proportionally
 
 #### Revenue Distribution
 - Treasury receives: redemption fees (underlying), tin fees (Ox minted), borrow fees (underlying), and strategy fees (underlying)

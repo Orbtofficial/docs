@@ -9,7 +9,8 @@ Track the following metrics and define alerts with actionable thresholds.
   - Pocket `balance` vs. `allowance` to UCE; headroom for `_pullFromPocket`
 - Global:
   - `baseRedemptionRate`, `lastRedemptionTime`; derived `r_current`
-  - `totalReservedOx`, `baseTotalDebt`, `debtIndex`
+  - `totalReservedZeroX`, `baseTotalDebt` (sum of all allocator baseDebt)
+  - `wipeEpoch` (for lazy debt wiping)
   - Swap volume by pair type and fees: sum of `RedemptionFeeTaken` and `TinFeeTaken`
 
 Suggested alerts:

@@ -68,7 +68,7 @@ interface IOrbtUCE {
     /// @notice Complete allocator accounting and config state.
     struct AllocatorState {
         bool allowed;
-        uint256 baseDebt; // outstanding debt in base units (scaled by debtIndex)
+        uint256 baseDebt; // outstanding debt in 0xAsset units (direct tracking, no index scaling)
         uint256 reservedOx; // allocator-reserved 0x inventory
         uint16 borrowFeeBps; // upfront borrow fee in bps
         LineOfCredit line;

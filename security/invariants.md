@@ -13,8 +13,10 @@ This section lists critical invariants and the code-level checks that enforce th
 - Pause safety:
   - Global `whenNotPaused` and per-asset `assetPaused(asset)` enforce no state changes when paused
 - Credit safety:
-  - `allocatorCreditMint` enforces `dailyCap`, `ceiling`; `allocatorRepay` caps debt reduction to current effective debt
-  - Pro-rata draw never reduces an allocator’s `reservedOx` below 0; base debt reductions clamp to `baseDebt`
+  - `allocatorCreditMint` enforces `dailyCap`, `ceiling`; ceiling check uses `allocatorDebt(allocator) + amount ≤ ceiling` where `allocatorDebt = baseDebt` (if `debtEpoch ≥ wipeEpoch`, else 0)
+  - `allocatorRepay` caps debt reduction to current debt: `repay_ox = min(ox_equiv, allocatorDebt(allocator))`, then `baseRepay = min(repay_ox, baseDebt(allocator))`
+  - Pro-rata draw never reduces an allocator's `reservedZeroX` below 0; base debt reductions clamp to `baseDebt`
+  - Debt tracked directly in 0xAsset units; no index scaling applied
 - Oracle safety:
   - `_readFeed` enforces positive price, round validity, and heartbeat ≤ configured; falls back to `baseUsdFeed` when needed; otherwise reverts
 - Upgrade auth:

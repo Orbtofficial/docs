@@ -13,8 +13,8 @@ Permissioned counterparties that run distribution, hold reserved 0x inventory, a
 
 * **Credit Minting**: Allocators may mint 0xAssets up to their credit line, but **these 0xAssets remain in the UCE contract**. They are credited as "reserved inventory" and can only be swapped when users provide equivalent underlying assets. This guarantees that every 0xAsset in circulation has equivalent underlying backing in UCE.
 * **Borrow Cost**: Governance-tunable `borrowFeeBps` applied on **repay** (on the underlying delivered back).
-* **Credit Controls**: `ceiling` (maximum effective debt) and `dailyCap` enforce safe issuance discipline.
-* **Debt Mechanics**: Lazy accounting via `debtIndex`; repayments reduce baseDebt in normalized 0x terms.
+* **Credit Controls**: `ceiling` (maximum debt in 0xAsset units) and `dailyCap` enforce safe issuance discipline.
+* **Debt Mechanics**: Debt is tracked directly in 0xAsset units (no index scaling). Repayments reduce `baseDebt` directly in 0x-equivalent terms after converting underlying to 0x via decimals normalization.
 
 ## Responsibilities
 

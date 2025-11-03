@@ -77,9 +77,11 @@ Charged in underlying to allocators on repay; fee is sent to `treasury` before d
 - Given repay `assets` in underlying and `borrowFeeBps`:
   - u_fee = (assets × borrowFeeBps) / 10_000
   - u_principal = assets − u_fee
-  - ox_equiv = std18(u_principal)  // decimals normalization only
-  - repay_ox = min(ox_equiv, currentEffectiveDebt)
-  - baseRepay = (repay_ox × 1e18) / debtIndex
+  - ox_equiv = std18(u_principal)  // decimals normalization only (no oracle)
+  - currentDebt = allocatorDebt(allocator) = baseDebt (if debtEpoch ≥ wipeEpoch, else 0)
+  - repay_ox = min(ox_equiv, currentDebt)
+  - baseRepay = repay_ox (no index scaling; debt is tracked directly in 0xAsset units)
+  - Update: `baseDebt(allocator) -= baseRepay`, `baseTotalDebt -= baseRepay` (clamped to prevent underflow)
 
 Events:
 - `AllocatorRepaid(repayer, allocator, repay_ox)`
