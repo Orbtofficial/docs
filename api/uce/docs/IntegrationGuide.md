@@ -102,7 +102,7 @@ event Swap(address indexed assetIn, address indexed assetOut, address sender,
   * **OX out must come from the referrer’s `reservedOx`**. If insufficient, **tx reverts**.
 * **Without referral (referralCode = 0)**:
 
-  * OX out settles from **unreserved protocol inventory**, then **pro-rata allocator inventory** (which *reduces their debt*), then **mints shortfall** if needed.
+  * OX out settles from **unreserved protocol inventory**, then **pro-rata allocator inventory** (reserved 0xAssets that allocators minted to UCE via credit - these remain in UCE and only enter circulation when users swap equivalent underlying, maintaining peg integrity), then **mints shortfall** if needed.
 
 **How to call**
 
@@ -210,7 +210,7 @@ Fees: U→0x applies tinBps (in 0x) regardless of referral; 0x→U applies the d
 | Origination       | U → OX (mint)                                                                                  | OX → U (redeem)                                                     |
 | ----------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | **With referral** | Underlying routed to allocator pocket; 0x must come from allocator's reservedOx (else revert). | Underlying pulled **from referrer’s pocket** (subject to allowance/balance). |
-| **No referral**   | OxAssets from **unreserved portion of 0xAssets in UCE by  protocol ** → **pro-rata allocator draw** → **mint shortfall**.            | Underlying from **on-hand reserve**, then **global pocket**.                 |
+| **No referral**   | OxAssets from **unreserved portion of 0xAssets in UCE by protocol** → **pro-rata allocator reserved inventory** (minted by allocators to UCE, remaining in UCE until swapped with equivalent underlying) → **mint shortfall**.            | Underlying from **on-hand reserve**, then **global pocket**.                 |
 
 ---
 

@@ -39,8 +39,8 @@ Conversions:
 - `convertToOxAssets(asset, assets) → oxAssets`
 
 Allocator credit (admin/allocator flows):
-- `allocatorCreditMint(allocator, amount)`
-- `allocatorRepay(asset, assets)`
+- `allocatorCreditMint(allocator, amount)`: Mints 0xAssets to UCE contract (assets remain in UCE, not transferred to allocator). These can only enter circulation when users swap equivalent underlying assets, maintaining peg integrity.
+- `allocatorRepay(asset, assets)`: Repays debt in underlying
 
 Admin (selection):
 - `setPocket(asset, newPocket)`

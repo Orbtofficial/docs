@@ -24,7 +24,9 @@
 - Daily bucket: reset at new UTC day; `mintedToday + amount ≤ dailyCap`
 - Ceiling check: `effDebt(a) + amount ≤ ceiling`
 - Effects:
-  - Mint `amount` Ox to UCE; increase `reservedOx(a)` and `totalReservedOx`
+  - **Mint `amount` 0xAssets directly to UCE contract** (assets remain in UCE custody, not transferred to allocator)
+  - Increase `reservedOx(a)` and `totalReservedOx` (accounting entry for allocator's reserved inventory)
+  - **Peg Integrity**: These minted 0xAssets can only leave UCE when users swap equivalent underlying assets, ensuring all 0xAssets in circulation are backed 1:1 by underlying in UCE
   - Increase `baseDebt(a)` and `baseTotalDebt` by `amount / debtIndex`
   - Emit `CreditMinted(a, amount)`
 

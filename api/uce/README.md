@@ -3,7 +3,7 @@
 The Unified Collateral Engine (UCE) is the backbone of 0xAsset issuance and solvency. It aggregates and manages collateral deposits that back the protocol’s stablecoin (0xUSD) and synthetic assets (0xBTC, 0xETH). Unlike legacy systems that siloed collateral by asset type or vault, the UCE operates through a unified collateral pool governed by a consistent risk framework.
 
 ## Core Properties
-Deterministic 1:1 accounting, allocator-scoped credit mint/repay, dynamic redemption fee with decay, referral-based inventory attribution, reserve policy on inbound flows, global vs allocator liquidity separation, and formalized pocket migration.
+Deterministic 1:1 accounting with **peg integrity**: Allocators mint 0xAssets via credit, but these remain in UCE and can only enter circulation when users swap equivalent underlying assets, ensuring all circulating 0xAssets are backed 1:1. Allocator-scoped credit mint/repay, dynamic redemption fee with decay, referral-based inventory attribution, reserve policy on inbound flows, global vs allocator liquidity separation, and formalized pocket migration.
 
 ## Components
 - Peg Stability Module (PSM)

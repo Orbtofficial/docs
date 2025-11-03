@@ -4,13 +4,14 @@ Permissioned counterparties that run distribution, hold reserved 0x inventory, a
 
 ## Role Summary
 
-* **Primary Issuers**: Mint 0x via borrow capacity, warehouse as **reserved 0x**, and serve user demand.
+* **Primary Issuers**: Mint 0xAssets via credit capacity. **Critical**: These minted 0xAssets remain in the UCE contract and cannot leave unless swapped with equivalent underlying assets. This ensures all 0xAssets in circulation are always backed by equivalent underlying in UCE, maintaining the 1:1 peg.
 * **Liquidity Managers**: Keep Pockets funded and allowances open so UCE can pull on redemptions.
 * **Yield Participants**: Deploy Pocket balances via UPM into strategies; optionally operate as OCHs via credit delegation.
-* **Attribution Surface**: Referral codes map user flow to an allocator; referred OX outflow **must** consume the referrer’s inventory.
+* **Attribution Surface**: Referral codes map user flow to an allocator; referred OX outflow **must** consume the referrer's inventory.
 
 ## Economics
 
+* **Credit Minting**: Allocators may mint 0xAssets up to their credit line, but **these 0xAssets remain in the UCE contract**. They are credited as "reserved inventory" and can only be swapped when users provide equivalent underlying assets. This guarantees that every 0xAsset in circulation has equivalent underlying backing in UCE.
 * **Borrow Cost**: Governance-tunable `borrowFeeBps` applied on **repay** (on the underlying delivered back).
 * **Credit Controls**: `ceiling` (maximum effective debt) and `dailyCap` enforce safe issuance discipline.
 * **Debt Mechanics**: Lazy accounting via `debtIndex`; repayments reduce baseDebt in normalized 0x terms.
@@ -60,7 +61,9 @@ Allocator-controlled multisig/EOA that receives attributed inflows, authorizes U
 - Set per‑asset pockets (custody addresses) that receive underlying inflows
 
 2) Credit Minting (provision inventory)
-- Allocator mints OX inventory to UCE (credited as reserved inventory)
+- Allocator mints 0xAssets to UCE via `allocatorCreditMint()`. **These 0xAssets stay in the UCE contract** and are credited as reserved inventory
+- These reserved 0xAssets can only enter circulation when users swap equivalent underlying assets (U→0x swaps)
+- This ensures peg integrity: 0xAssets in circulation = equivalent underlying assets in UCE
 - Tracked against ceiling and dailyCap; emits CreditMinted
 
 3) Deployment (earn and serve flow)
@@ -74,7 +77,9 @@ Allocator-controlled multisig/EOA that receives attributed inflows, authorizes U
 ## 0xAsset Credit Minting (U→0x supply preparation)
 
 Effect of `allocatorCreditMint(allocator, amount)`:
-- Mints OX to UCE (not to allocator) and increases allocator’s reserved OX inventory by `amount`
+- **Mints 0xAssets directly to UCE contract** (not to allocator address). These 0xAssets remain in UCE custody
+- Increases allocator's reserved 0xAssets inventory by `amount` (this is an accounting entry, not a transfer)
+- **Peg Maintenance**: These minted 0xAssets can only leave UCE when users provide equivalent underlying assets via swaps. This ensures that all 0xAssets in circulation are backed 1:1 by underlying assets in UCE, maintaining the peg
 - Tracks throughput in UTC‑bucketed daily counters; enforces ceiling/dailyCap
 - Reorders allocator priority for pro‑rata draws where applicable
 
@@ -105,7 +110,7 @@ Non‑referral (protocol path):
 ## Privileges & Restrictions
 
 Privileges:
-- Mint OX up to credit limits without pre‑posting collateral
+- Mint 0xAssets up to credit limits without pre‑posting collateral (minted 0xAssets remain in UCE contract)
 - Receive U inflows to pockets on referred swaps; earn yield on deployed capital
 
 Restrictions:

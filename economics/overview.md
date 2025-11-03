@@ -13,7 +13,8 @@ This document summarizes the economic levers in UCE, strategies, and bridge adap
 - Reserves are consumed first on Ox→U outbound to minimize pocket dependency
 
 #### Credit and Debt
-- Allocators mint Ox inventory under ceiling/daily caps; debt tracked via `debtIndex`
+- Allocators mint 0xAssets under ceiling/daily caps via credit. **Critical**: These minted 0xAssets remain in the UCE contract and cannot leave unless swapped with equivalent underlying assets. This ensures all 0xAssets in circulation are backed 1:1 by equivalent underlying in UCE, maintaining the peg.
+- Debt tracked via `debtIndex`
 - Repay in underlying reduces debt in Ox-equivalent; borrow fee collected first
 - Protocol can draw reserved Ox pro-rata from allocators for protocol sends, reducing base debt proportionally
 

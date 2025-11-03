@@ -8,6 +8,7 @@ Unified pool advantage: surplus in one collateral can absorb shortfalls in anoth
 
 - Core liquidity hub for users, allocators, and integrators
 - Ensures every 0xAsset is fully backed, instantly redeemable, and efficiently utilized via yield routes (UPM/Strategies)
+- **Maintains 1:1 peg**: Allocators may mint 0xAssets via credit, but these remain in UCE and can only enter circulation when users swap equivalent underlying assets, ensuring every circulating 0xAsset has equivalent backing
 - Bridges classic PSM flows with modern credit and pocket-based liquidity
 
 ## How It Works (Lifecycle)
@@ -57,6 +58,7 @@ Unified pool advantage: surplus in one collateral can absorb shortfalls in anoth
 
 ## Invariants & Safety
 
+- **Peg Integrity**: All 0xAssets in circulation are backed 1:1 by equivalent underlying assets in UCE. Allocators mint 0xAssets to UCE, but these remain in UCE and can only enter circulation via swaps with equivalent underlying backing.
 - Liquidity bounded: pocket pulls limited by allowance and balance; insufficient liquidity reverts.
 - Pair gating: Only U↔0x and 0x↔s0x supported.
 - Preview parity: fee snapshot on redemption; consistent decimals normalization and tin application.
@@ -83,12 +85,15 @@ Operational implications:
 ## Allocators (Overview)
 
 Whitelisted entities that provision 0x inventory and custody pockets.
-- Lifecycle: onboard → credit mint (OX inventory on UCE) → deploy underlying via Strategies → repay in underlying.
-- Referral routing: user U inflows go to the allocator pocket; 0x to the user must be served from the allocator’s reserved inventory (else revert).
+- Lifecycle: onboard → credit mint (0xAssets remain in UCE contract) → deploy underlying via Strategies → repay in underlying.
+- **Peg Integrity**: When allocators mint 0xAssets via credit, these assets stay in UCE and can only enter circulation when users swap equivalent underlying assets. This ensures every 0xAsset in circulation has equivalent underlying backing in UCE, maintaining the 1:1 peg.
+- Referral routing: user U inflows go to the allocator pocket; 0x to the user must be served from the allocator's reserved inventory (else revert).
 - Restrictions: allocators cannot redeem 0x→U directly; they settle via underlying‑side flows.
 
 ### Credit Minting (effects)
-- Mints OX to UCE and credits allocator’s reserved inventory.
+- **Mints 0xAssets directly to UCE contract** (not transferred to allocator). These assets remain in UCE custody.
+- Credits allocator's reserved inventory (accounting entry, not a transfer).
+- **Critical**: These minted 0xAssets can only leave UCE when users provide equivalent underlying assets via U→0x swaps, ensuring peg integrity.
 - Tracks issuance against ceiling and daily cap; emits credit events.
 
 ### Repayment (effects)
