@@ -497,11 +497,11 @@ Comprehensive glossary of ORBT terminology, roles, and concepts.
 [![Modules](https://img.shields.io/badge/Modules-Source%20Code-2C3E50?style=for-the-badge&logo=github&logoColor=white)](#module-repositories) [![UCE](https://img.shields.io/badge/UCE-Repo-blue?style=flat-square&logo=github)](#) [![USM](https://img.shields.io/badge/USM-Repo-yellow?style=flat-square&logo=github)](#) [![UPM](https://img.shields.io/badge/UPM-Repo-green?style=flat-square&logo=github)](#) [![Strategies](https://img.shields.io/badge/Strategies-Repo-purple?style=flat-square&logo=github)](#)
 
 - UCE (Unified Collateral Engine): Core swap engine and credit allocation
-  - Repo: https://github.com/Orbtofficial/uce-v1
+  - Repo: https://github.com/Orbtofficial/uce
 - USM (User Staking Module): ERC-4626 yield-bearing vaults for 0x assets
   - Repo: https://github.com/Orbtofficial/usm
 - Governance: Timelocked multi-sig parameter updates
-  - Repo: https://github.com/Orbtofficial/orbt-governance-v1
+  - Repo: https://github.com/Orbtofficial/orbt-governance
 - Rewards: ORBT token staking rewards distribution
   - Repo: https://github.com/Orbtofficial/rewards
 - UPM (User Position Manager): Stateless transaction orchestrator

@@ -4,11 +4,11 @@
 
 This repository is focused on **documentation only**. For code contributions, testing, and development workflows, please contribute to the respective module repositories:
 
-- **UCE**: https://github.com/Orbtofficial/uce-v1
+- **UCE**: https://github.com/Orbtofficial/uce
 - **USM**: https://github.com/Orbtofficial/usm
 - **UPM**: https://github.com/Orbtofficial/upm
 - **Strategies**: https://github.com/Orbtofficial/strategy-core
-- **Governance**: https://github.com/Orbtofficial/orbt-governance-v1
+- **Governance**: https://github.com/Orbtofficial/orbt-governance
 - **Rewards**: https://github.com/Orbtofficial/rewards
 
 ## How to Contribute
