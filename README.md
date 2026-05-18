@@ -621,19 +621,24 @@ ORBT employs a multi-layered security approach with comprehensive threat modelin
 
 ## Deployment Status
 
-[![Deployment](https://img.shields.io/badge/Deployment-Pre--deployment-yellow?style=for-the-badge&logo=rocket&logoColor=white)](#deployment-status) [![Status](https://img.shields.io/badge/Status-Pre--audit-orange?style=flat-square)](#)
+[![Deployment](https://img.shields.io/badge/Deployment-Live-brightgreen?style=for-the-badge&logo=rocket&logoColor=white)](#deployment-status) [![Status](https://img.shields.io/badge/Status-Mainnet-success?style=flat-square)](#) [![Network](https://img.shields.io/badge/Network-Ethereum-627EEA?style=flat-square&logo=ethereum&logoColor=white)](#)
 
-ORBT Protocol is currently in **pre-deployment** phase. The protocol is being developed and audited before mainnet launch.
+ORBT Protocol is **live on Ethereum mainnet**. Core contracts for the USD, BTC, ETH, and SOL asset families are deployed and operational.
 
 ### Network Status
 
 | Network | Status | Contracts |
 |---------|--------|-----------|
-| **Ethereum Mainnet** | 🔴 Not Deployed | Coming soon |
-| **Sepolia Testnet** | 🟡 Planned | Coming soon |
-| **Other Networks** | 🟡 Planned | Coming soon |
+| **Ethereum Mainnet** | 🟢 Deployed | See addresses below |
 
-**Contract Addresses**: Coming soon after deployment
+### Contract Addresses (Proxies)
+
+| Family | UCE (Proxy) | USM (Proxy) | 0xAsset (Proxy) |
+|--------|-------------|-------------|-----------------|
+| **USD Family** | `0x0000b10cbfa9038db5663a0967a57deacaa6e686` | `0x0000b10c4656aea2ccd28a94a223ef090356ca2a` | `0x0000b10c45b0284b7efe65103a4852c3802b77d7` |
+| **BTC Family** | `0x0000b10c6e405ef862788bcfed1da2ce83964331` | `0x0000b10cae776764824c4b99f74ed023893c9373` | `0x0000b10c960af01062a44259d29e049f9df0435e` |
+| **ETH Family** | `0x0000b10cd2757f16b256317bad53ff6a6bf4aa09` | `0x0000b10c18ced29a4bf01c62c2f417a9cdd1ba57` | `0x0000b10cc40ad612f1782eebfc6fb18dbf259bff` |
+| **SOL Family** | `0x0000b10c541163aaf46a8c11d98c3158715543f5` | `0x0000b10c2d0388a067d8f32e559170eaaceadd82` | `0x0000b10c813a99e610045cd384c8bfcc4e15d18e` |
 
 ---
 
